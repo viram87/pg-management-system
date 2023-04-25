@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import Home from "./Components/Home";
+import UserProfile from "./Components/userProfile";
 import Login from "./Components/Login";
 import PrivateRoute from "./Components/PrivateRote";
 import { useState } from "react";
@@ -30,10 +31,21 @@ function App() {
             path="/home"
             element={
               <PrivateRoute isLoggedin={isLoggedin}>
-                <Home />
+                <div>
+                  <Home />
+                </div>
               </PrivateRoute>
             }
-          />
+          ></Route>
+          <Route path="/user" exact element={<UserProfile />} />
+          {/* <Route
+            path="/user"
+            element={
+              <PrivateRoute isLoggedin={isLoggedin}>
+                <UserProfile />
+              </PrivateRoute>
+            }
+          /> */}
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
