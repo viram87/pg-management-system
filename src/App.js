@@ -10,6 +10,7 @@ import PrivateRoute from "./Components/PrivateRote";
 import { useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
+import AddNew from "./Components/AddNew";
 
 function App() {
   const [isLoggedin, setIsLoggedin] = useState(false);
@@ -37,15 +38,17 @@ function App() {
               </PrivateRoute>
             }
           ></Route>
-          <Route path="/user" exact element={<UserProfile />} />
-          {/* <Route
-            path="/user"
+          <Route
+            path="/add-new"
             element={
               <PrivateRoute isLoggedin={isLoggedin}>
-                <UserProfile />
+                <div>
+                  <AddNew />
+                </div>
               </PrivateRoute>
             }
-          /> */}
+          ></Route>
+          <Route path="/user" exact element={<UserProfile />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

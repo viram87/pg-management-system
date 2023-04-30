@@ -23,22 +23,21 @@ const Home = () => {
 
   const getData = async (id) => {
     const data = await getDoc(doc(db, "users", id));
-    // console.log("data.data()", data.data());
-    setUserData(data?.data());
+    await setUserData(data?.data());
   };
+
+  console.log("currnet user", userData);
 
   return (
     <div className="w-full bg-gray-100 h-[100vh]">
       <div className="w-full top-0">
         <Header />
       </div>
-      {userData?.role == "owner" ? (
+      {userData?.data.role === "owner" ? (
         <div>
-          <ViewAll />
+          <ViewAll user={userData} />
         </div>
-      ) : (
-        <div></div>
-      )}
+      ) : null}
     </div>
   );
 };

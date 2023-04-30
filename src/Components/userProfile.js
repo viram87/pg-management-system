@@ -20,9 +20,11 @@ const UserProfile = () => {
   }, [userData]);
 
   const getData = async (id) => {
+    console.log("id", id);
     const data = await getDoc(doc(db, "users", id));
     // console.log("data.data()", data.data());
-    setUserData(data.data());
+    console.log("data", data.data());
+    await setUserData(data.data().data);
   };
 
   return (
@@ -35,7 +37,9 @@ const UserProfile = () => {
       <div className="absolute top-2/4 left-[20%] -translate-y-2/4 flex gap-x-10 ">
         <div className="border-black relative rounded-full border w-56 h-56 p-10 ">
           <img
-            src={`https://robohash.org/${userData?.name || "viram"}`}
+            src={`https://robohash.org/${
+              userData?.name.split(" ")[0] || "viram"
+            }`}
             className="absolute left-2/4 top-2/4 -translate-x-2/4 -translate-y-2/4 mt-[-20px] w-[200px] h-[200px]"
           />
         </div>

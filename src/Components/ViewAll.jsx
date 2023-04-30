@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   pgFive,
   pgFour,
@@ -10,6 +10,9 @@ import {
   verified,
 } from "../assets/asset";
 import { BsFillTelephoneForwardFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 const dummyPg = [
   {
@@ -74,36 +77,48 @@ const dummyPg = [
   },
 ];
 
-const ViewAll = () => {
+const ViewAll = ({ user }) => {
+
+  const [pgData, setPgData] = useState([])
+
+  const getData = async () => {
+    const data = await getDoc(doc(db, "users", user.data.uid))
+    setPgData(data.data().data.hostels)
+  }
+
+  useEffect(() => {
+    getData()
+    console.log('user', user.data.uid)
+  }, [user])
+
   return (
     <div className="p-5">
       <div className="flex items-center gap-x-10">
         <p className="poppins-semibold text-lg">See all your PGs</p>
-        <div className="z-50 poppins-semibold px-3 cursor-pointer text-white py-1 rounded-lg bg-[#5371ff]">
+        <Link to="/add-new" state={{ state: user }} className="w-fit z-50 poppins-semibold px-3 cursor-pointer text-white py-1 rounded-lg bg-[#5371ff]">
           Add New
-        </div>
+        </Link>
       </div>
       <div className="flex mt-5 h-fit">
         {/* <div className="w-[25%] border-r border-black"></div> */}
         <div className="h-[calc(100vh-160px)]  flex flex-col gap-y-5 overflow-x-hidden  overflow-scroll  w-full">
-          {dummyPg.map((pgs, index) => {
+          {pgData.map((pgs, index) => {
             return (
               <div
                 key={index}
                 className="flex bg-white relative hover:shadow-2xl items-start rounded-xl p-5 justify-between  "
               >
                 <div
-                  className={`absolute px-2 text-sm py-0.5 right-0 top-0 ${
-                    !pgs.forBoys ? "bg-[#ffccd7]" : "bg-[#afeaef]"
-                  }`}
+                  className={`absolute px-2 text-sm py-0.5 right-0 top-0 ${pgs.role == "Girls" ? "bg-[#ffccd7]" : "bg-[#afeaef]"
+                    }`}
                 >
-                  {pgs.forBoys ? "Boys" : "Girls"}
+                  {pgs.role == "Boys" ? "Boys" : "Girls"}
                 </div>
                 {/* <p>{index + 1}</p> */}
                 <div>
                   <div className="flex gap-x-5">
                     <img
-                      src={pgs.image}
+                      src={pgOne}
                       className="w-[250px] h-[175px] rounded-xl object-cover "
                     />
                     <div>
@@ -114,12 +129,12 @@ const ViewAll = () => {
                           </span>{" "}
                           onwards
                         </p>
-                        {pgs.isVerified && (
+                        {/* {pgs.isVerified && (
                           <div className="flex items-center gap-x-2">
                             <img src={verified} className="w-6 h-6w-6" />
                             <p>verified</p>
                           </div>
-                        )}
+                        )} */}
                       </div>
 
                       <div className="flex gap-x-10 mt-5">
@@ -135,7 +150,7 @@ const ViewAll = () => {
                           </div>
                           <p className="text-center poppins-semibold mt-2 text-xl">
                             {" "}
-                            &#8377; {pgs.doubleSharing}/-
+                            &#8377; {pgs.db_sharing}/-
                           </p>
                         </div>
                         <div
@@ -150,13 +165,13 @@ const ViewAll = () => {
                           </div>
                           <p className="text-center poppins-semibold mt-2 text-xl">
                             {" "}
-                            &#8377; {pgs.tripleSharing}/-
+                            &#8377; {pgs.tr_sharing}/-
                           </p>
                         </div>
                       </div>
                       <div className="flex gap-x-14 mt-3 items-center">
                         <p className="poppins-medium">
-                          Locality : {pgs.address}
+                          Locality : {pgs.location}
                         </p>
                         <p className="poppins-medium flex items-center gap-x-5">
                           <BsFillTelephoneForwardFill />
@@ -167,11 +182,11 @@ const ViewAll = () => {
                   </div>
                 </div>
               </div>
-            );  
+            );
           })}
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

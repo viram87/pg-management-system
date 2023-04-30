@@ -17,7 +17,7 @@ const Header = () => {
       </button>
       <div
         className={`absolute top-[55px] z-20 shadow-2xl p-3 ${
-          isOpen ? "opacity-[100]" : "opacity-0"
+          isOpen ? "opacity-[100]" : "opacity-0 hidden"
         }  right-2 duration-300 transition-all ease-in-out rounded-xl h-fit w-[200px] bg-white`}
       >
         <ul>
