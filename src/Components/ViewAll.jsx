@@ -14,91 +14,46 @@ import { Link } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
-const dummyPg = [
-  {
-    sr: 1,
-    contact: 123456789,
-    rent: 10000,
-    name: "viram's pg 1 ",
-    forBoys: true,
-    doubleSharing: 12000,
-    image: [pgTwo],
-    isVerified: false,
-    tripleSharing: 10000,
-    address: "Gota, Ahmedabad",
-  },
-  {
-    sr: 2,
-    contact: 123456789,
-    rent: 10000,
-    name: "viram's pg 2",
-    forBoys: false,
-    isVerified: false,
-    doubleSharing: 12000,
-    image: [pgThree],
-    tripleSharing: 10000,
-    address: "Thaltej, Ahmedabad",
-  },
-  {
-    sr: 3,
-    contact: 123456789,
-    rent: 10000,
-    isVerified: true,
-    name: "viram's pg 3 ",
-    forBoys: true,
-    doubleSharing: 12000,
-    image: [pgFour],
-    tripleSharing: 10000,
-    address: "Bodakdev, Ahmedabad",
-  },
-  {
-    sr: 4,
-    contact: 123456789,
-    rent: 10000,
-    name: "viram's pg 4 ",
-    forBoys: true,
-    doubleSharing: 12000,
-    image: [pgFive],
-    isVerified: false,
-    tripleSharing: 10000,
-    address: "Iscon, Ahmedabad",
-  },
-  {
-    sr: 5,
-    contact: 123456789,
-    rent: 10000,
-    name: "viram's pg 5 ",
-    forBoys: false,
-    isVerified: true,
-    doubleSharing: 12000,
-    image: [pgOne],
-    tripleSharing: 10000,
-    address: "Satelite, Ahmedabad",
-  },
-];
-
 const ViewAll = ({ user }) => {
-
-  const [pgData, setPgData] = useState([])
+  const [pgData, setPgData] = useState([]);
 
   const getData = async () => {
-    const data = await getDoc(doc(db, "users", user.data.uid))
-    setPgData(data.data().data.hostels)
-  }
+    const data = await getDoc(doc(db, "users", user.uid || user.data.uid));
+    setPgData(data.data().hostels || data.data().data.hostels);
+  };
 
   useEffect(() => {
-    getData()
-    console.log('user', user.data.uid)
-  }, [user])
+    getData();
+    console.log("user", user.uid || user.data.uid);
+  }, [user]);
 
   return (
-    <div className="p-5">
-      <div className="flex items-center gap-x-10">
-        <p className="poppins-semibold text-lg">See all your PGs</p>
-        <Link to="/add-new" state={{ state: user }} className="w-fit z-50 poppins-semibold px-3 cursor-pointer text-white py-1 rounded-lg bg-[#5371ff]">
-          Add New
-        </Link>
-      </div>
+    <div className="p-5 relative">
+      {pgData.length <= 0 ? (
+        <div className="flex absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 gap-2 items-center flex-col">
+          <p className="poppins-semibold text-lg">
+            Oops! no data available at the moment.
+          </p>
+          <Link
+            to="/add-new"
+            state={{ state: user }}
+            className="w-fit z-50 poppins-semibold px-3 cursor-pointer text-white py-2 rounded-lg bg-[#5371ff]"
+          >
+            Add New PG
+          </Link>
+        </div>
+      ) : (
+        <div className="flex items-center gap-x-10">
+          <p className="poppins-semibold text-lg">See all your PGs</p>
+          <Link
+            to="/add-new"
+            state={{ state: user }}
+            className="w-fit z-50 poppins-semibold px-3 cursor-pointer text-white py-1 rounded-lg bg-[#5371ff]"
+          >
+            Add New
+          </Link>
+        </div>
+      )}
       <div className="flex mt-5 h-fit">
         {/* <div className="w-[25%] border-r border-black"></div> */}
         <div className="h-[calc(100vh-160px)]  flex flex-col gap-y-5 overflow-x-hidden  overflow-scroll  w-full">
@@ -106,11 +61,12 @@ const ViewAll = ({ user }) => {
             return (
               <div
                 key={index}
-                className="flex bg-white relative hover:shadow-2xl items-start rounded-xl p-5 justify-between  "
+                className="flex  bg-white relative hover:shadow-2xl items-start rounded-xl p-5 justify-between  "
               >
                 <div
-                  className={`absolute px-2 text-sm py-0.5 right-0 top-0 ${pgs.role == "Girls" ? "bg-[#ffccd7]" : "bg-[#afeaef]"
-                    }`}
+                  className={`absolute px-2 text-sm py-0.5 right-0 top-0 ${
+                    pgs.role == "Girls" ? "bg-[#ffccd7]" : "bg-[#afeaef]"
+                  }`}
                 >
                   {pgs.role == "Boys" ? "Boys" : "Girls"}
                 </div>
@@ -186,7 +142,7 @@ const ViewAll = ({ user }) => {
           })}
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

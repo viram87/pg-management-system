@@ -8,11 +8,10 @@ import { BiArrowBack } from "react-icons/bi";
 const UserProfile = () => {
   const { state } = useLocation();
   const [userData, setUserData] = useState();
-  const [isSideBar, setIsSideBar] = useState(true);
 
   useEffect(() => {
     const localData = localStorage.getItem("userId");
-    getData(localData || state.userId);
+    getData(localData || state.userId || state.data.userId);
   }, []);
 
   useEffect(() => {
@@ -24,7 +23,7 @@ const UserProfile = () => {
     const data = await getDoc(doc(db, "users", id));
     // console.log("data.data()", data.data());
     console.log("data", data.data());
-    await setUserData(data.data().data);
+    await setUserData(data.data() || data.data().data);
   };
 
   return (
@@ -38,7 +37,9 @@ const UserProfile = () => {
         <div className="border-black relative rounded-full border w-56 h-56 p-10 ">
           <img
             src={`https://robohash.org/${
-              userData?.name.split(" ")[0] || "viram"
+              userData?.name?.split(" ")[0] ||
+              userData?.data?.name?.split(" ")[0] ||
+              "viram"
             }`}
             className="absolute left-2/4 top-2/4 -translate-x-2/4 -translate-y-2/4 mt-[-20px] w-[200px] h-[200px]"
           />
@@ -51,7 +52,7 @@ const UserProfile = () => {
               className="cursor-pointer flex gap-x-3 mt-2 w-full col-span-1 rounded-2xl  items-center  border px-3 py-2"
             >
               <input
-                checked={userData?.role == "owner"}
+                checked={(userData?.role || userData?.data?.role) == "owner"}
                 value="owner"
                 name="role"
                 id="owner"
@@ -66,7 +67,7 @@ const UserProfile = () => {
               className="cursor-pointer col-span-1 w-full mt-2 flex gap-x-3 rounded-2xl  items-center  border px-3 py-2"
             >
               <input
-                checked={userData?.role == "seeker"}
+                checked={userData?.role || userData?.data?.role == "seeker"}
                 value="seeker"
                 name="role"
                 id="seeker"
@@ -84,7 +85,7 @@ const UserProfile = () => {
             className="h-[45px] mt-2 w-[400px] px-3 border rounded-xl poppins-regular text-base focus:border-[#5371ff] outline-none"
             placeholder=""
             disabled
-            value={userData?.name}
+            value={userData?.name || userData?.data?.name}
           />
           <p className="outfit-regular text-lg mt-3">Name</p>
           <input
@@ -92,7 +93,7 @@ const UserProfile = () => {
             className="h-[45px] w-[400px] mt-2 px-3 border rounded-xl poppins-regular text-base focus:border-[#5371ff] outline-none"
             placeholder=""
             disabled
-            value={userData?.email}
+            value={userData?.email || userData?.data?.email}
           />
         </div>
       </div>

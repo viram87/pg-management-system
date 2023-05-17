@@ -1,60 +1,60 @@
 @font-face {
-  font-family: 'outfit-regular';
+  font-family: "outfit-regular";
   src: url(../public/Outfit/static/Outfit-Regular.ttf);
 }
 
 @font-face {
-  font-family: 'outfit-medium';
+  font-family: "outfit-medium";
   src: url(../public/Outfit/static/Outfit-Medium.ttf);
 }
 
 @font-face {
-  font-family: 'outfit-semibold';
+  font-family: "outfit-semibold";
   src: url(../public/Outfit/static/Outfit-SemiBold.ttf);
 }
 
 @font-face {
-  font-family: 'poppins-regular';
+  font-family: "poppins-regular";
   src: url(../public/Poppins/Poppins-Regular.ttf);
 }
 
 @font-face {
-  font-family: 'poppins-medium';
+  font-family: "poppins-medium";
   src: url(../public/Poppins/Poppins-Medium.ttf);
 }
 
 @font-face {
-  font-family: 'poppins-semibold';
+  font-family: "poppins-semibold";
   src: url(../public/Poppins/Poppins-SemiBold.ttf);
 }
 
 .outfit-regular {
-  font-family: 'outfit-regular';
+  font-family: "outfit-regular";
   font-weight: 300;
 }
 
 .outfit-medium {
-  font-family: 'outfit-medium';
+  font-family: "outfit-medium";
   font-weight: 400;
 }
 
 .outfit-semibold {
-  font-family: 'outfit-semibold';
+  font-family: "outfit-semibold";
   font-weight: 500;
 }
 
 .poppins-regular {
-  font-family: 'poppins-regular';
+  font-family: "poppins-regular";
   font-weight: 300;
 }
 
 .poppins-medium {
-  font-family: 'poppins-medium';
+  font-family: "poppins-medium";
   font-weight: 400;
 }
 
 .poppins-semibold {
-  font-family: 'poppins-semibold';
+  font-family: "poppins-semibold";
   font-weight: 500;
 }
 
@@ -97,7 +97,7 @@ input[type="radio"]:checked::after {
 }
 
 ::placeholder {
-  font-family: 'poppins-regular';
+  font-family: "poppins-regular";
   font-size: 16px;
   letter-spacing: 1.2px;
 }
@@ -106,11 +106,15 @@ input[type="password"] {
   font: "outfit-regular";
   font-size: 18px;
   letter-spacing: 6px;
-  -webkit-text-security: square
+  -webkit-text-security: square;
 }
 
 input {
   font: "outfit-regular";
   font-size: 18px;
   letter-spacing: 3px;
+}
+
+.scroll::-webkit-scrollbar {
+  display: none;
 }

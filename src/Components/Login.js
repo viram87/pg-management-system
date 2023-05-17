@@ -25,7 +25,6 @@ const Login = () => {
   const [userDetails, setUserDetails] = useState({
     email: "",
     name: "",
-    role: "",
   });
 
   const {
@@ -61,12 +60,36 @@ const Login = () => {
         data.email,
         data.password
       ).catch((errors) => {
+        setIsLoading(false);
         console.log(errors.code);
+        if (errors.code === "auth/user-not-found") {
+          toast.error("Invalid user creadentials", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else if (errors.code === "auth/wrong-password") {
+          toast.error("password is incorrect", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
       });
 
       setUserDetails({
-        email: result.user.email,
-        uid: result.user.uid,
+        email: result.user.email || result.datauser.email,
+        uid: result.user.uid || result.data.user.data.uid,
         name: data.name,
         role: data.role,
       });
@@ -103,7 +126,8 @@ const Login = () => {
         uid: result.user.uid,
         name: data.name,
         email: data.email,
-        role: data.role,
+        role: "seeker",
+        hostels: [],
       }).catch((errors) => {
         console.log("set doc", errors);
       });
@@ -157,12 +181,12 @@ const Login = () => {
           </div>
         </div>
         <div className="mt-10 grid grid-cols-2 gap-x-10 max-w-[50%]">
-          {!isLogin ? (
+          {/* {!isLogin ? (
             <p className="outfit-medium text-lg text-gray-600 mt-2 col-span-2">
               You are a ?
             </p>
-          ) : null}
-          {!isLogin ? (
+          ) : null} */}
+          {/* {!isLogin ? (
             <div className="grid grid-cols-2 col-span-2 gap-x-10">
               <label
                 htmlFor="owner"
@@ -195,7 +219,7 @@ const Login = () => {
                 </p>
               </label>
             </div>
-          ) : null}
+          ) : null} */}
 
           {!isLogin && (
             <div className={`${!isLogin && "mt-6"} w-full col-span-2`}>

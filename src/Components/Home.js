@@ -6,6 +6,7 @@ import { getDownloadURL, ref } from "firebase/storage";
 import { useLocation } from "react-router-dom";
 import Header from "./Header";
 import ViewAll from "./ViewAll";
+import Seekers from "./Seekers";
 
 const Home = () => {
   const { state } = useLocation();
@@ -33,9 +34,16 @@ const Home = () => {
       <div className="w-full top-0">
         <Header />
       </div>
-      {userData?.data.role === "owner" ? (
+
+      {(userData?.role || userData?.data.role) === "owner" ? (
         <div>
           <ViewAll user={userData} />
+        </div>
+      ) : null}
+
+      {(userData?.role || userData?.data.role) === "seeker" ? (
+        <div>
+          <Seekers user={userData} />
         </div>
       ) : null}
     </div>

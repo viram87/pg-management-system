@@ -11,6 +11,8 @@ import { useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import AddNew from "./Components/AddNew";
+import ViewPg from "./Components/ViewPg";
+
 
 function App() {
   const [isLoggedin, setIsLoggedin] = useState(false);
@@ -44,6 +46,16 @@ function App() {
               <PrivateRoute isLoggedin={isLoggedin}>
                 <div>
                   <AddNew />
+                </div>
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path="/view"
+            element={
+              <PrivateRoute isLoggedin={isLoggedin}>
+                <div>
+                  <ViewPg />
                 </div>
               </PrivateRoute>
             }
