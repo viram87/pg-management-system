@@ -126,7 +126,7 @@ const Login = () => {
         uid: result.user.uid,
         name: data.name,
         email: data.email,
-        role: "seeker",
+        role: data.role,
         hostels: [],
       }).catch((errors) => {
         console.log("set doc", errors);
@@ -181,12 +181,12 @@ const Login = () => {
           </div>
         </div>
         <div className="mt-10 grid grid-cols-2 gap-x-10 max-w-[50%]">
-          {/* {!isLogin ? (
+          {!isLogin ? (
             <p className="outfit-medium text-lg text-gray-600 mt-2 col-span-2">
               You are a ?
             </p>
-          ) : null} */}
-          {/* {!isLogin ? (
+          ) : null}
+          {!isLogin ? (
             <div className="grid grid-cols-2 col-span-2 gap-x-10">
               <label
                 htmlFor="owner"
@@ -219,7 +219,7 @@ const Login = () => {
                 </p>
               </label>
             </div>
-          ) : null} */}
+          ) : null}
 
           {!isLogin && (
             <div className={`${!isLogin && "mt-6"} w-full col-span-2`}>

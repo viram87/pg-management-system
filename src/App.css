@@ -118,3 +118,47 @@ input {
 .scroll::-webkit-scrollbar {
   display: none;
 }
+
+.sidebar {
+  /* Sidebar styles */
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  position: relative;
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+}
+
+li span {
+  margin-left: 10px;
+}
+
+.arrow-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  /* Add arrow icon styles (e.g., using a background image or Unicode character) */
+}
+
+.sub-menu {
+  display: none;
+  padding: 0 !important;
+  margin-bottom: -10px;
+  margin-left: 20px;
+}
+
+.sub-menu li {
+  padding: 5px;
+}
+
+li:hover .sub-menu {
+  display: block;
+}

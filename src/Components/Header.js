@@ -3,12 +3,17 @@ import { FaUserTie } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { auth } from "../firebase";
 import { Link } from "react-router-dom";
+import { BiBuildingHouse } from "react-icons/bi";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="h-[60px] relative flex items-center  w-full bg-[#5371ff]">
+      <div className="text-white flex gap-x-2 items-center outfit-medium mx-5">
+        <BiBuildingHouse size={30} color="white" />
+        PG MANAGEMENT SYSTEM
+      </div>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="absolute z-10 right-0 mr-5 border profile  rounded-full p-2 cursor-pointer group"

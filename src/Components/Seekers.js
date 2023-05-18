@@ -17,9 +17,6 @@ const Seekers = ({ user }) => {
     //   setAllPgs((prevState) => [...prevState, doc.data()]);
     // });
     console.log(querySnapshot);
-    // querySnapshot.docs.forEach((data, index) =>
-    //   setAllPgs((prev) => [...allPgs, data.data()])
-    // );
     setAllPgs(querySnapshot.docs);
   };
 

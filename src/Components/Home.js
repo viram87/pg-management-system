@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import Header from "./Header";
 import ViewAll from "./ViewAll";
 import Seekers from "./Seekers";
+import Admin from "./Admin";
 
 const Home = () => {
   const { state } = useLocation();
@@ -44,6 +45,12 @@ const Home = () => {
       {(userData?.role || userData?.data.role) === "seeker" ? (
         <div>
           <Seekers user={userData} />
+        </div>
+      ) : null}
+
+      {(userData?.role || userData?.data.role) === "admin" ? (
+        <div className="h-full">
+          <Admin user={userData}/>
         </div>
       ) : null}
     </div>
