@@ -6,12 +6,12 @@ import { getAuth } from "firebase/auth";
 // import { getStorage } from "firebase/firebase-storage"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBMx_5GYb4S9HY7M2AVvGqjudrH2EKuZv0",
-  authDomain: "viram-pg.firebaseapp.com",
-  projectId: "viram-pg",
-  storageBucket: "viram-pg.appspot.com",
-  messagingSenderId: "1050368615952",
-  appId: "1:1050368615952:web:1e1163a3ae9eef1f9ecc95",
+  apiKey: "",
+  authDomain: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
 };
 
 // Initialize Firebase
